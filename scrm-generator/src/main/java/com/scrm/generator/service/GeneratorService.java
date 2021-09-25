@@ -1,25 +1,4 @@
-/**
- * Copyright(C) 2021 Fugle Technology Co., Ltd. All rights reserved.
- */
 package com.scrm.generator.service;
-
-import com.scrm.generator.constants.GenConstants;
-import com.scrm.generator.dto.GeneratorDTO;
-import com.scrm.generator.mapper.GeneratorMapper;
-import com.scrm.generator.utils.GenUtils;
-
-import org.apache.velocity.Template;
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.Velocity;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import cn.hutool.core.collection.CollectionUtil;
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.util.CharsetUtil;
-import cn.hutool.core.util.StrUtil;
-import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.StringWriter;
@@ -27,6 +6,24 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
+
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.Velocity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.scrm.generator.constants.GenConstants;
+import com.scrm.generator.dto.GeneratorDTO;
+import com.scrm.generator.mapper.GeneratorMapper;
+import com.scrm.generator.utils.GenUtils;
+
+import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.CharsetUtil;
+import cn.hutool.core.util.StrUtil;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author LiuZhengyang
