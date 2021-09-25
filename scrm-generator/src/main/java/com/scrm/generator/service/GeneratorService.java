@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 
+import javax.annotation.PostConstruct;
+
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
@@ -74,11 +76,9 @@ public class GeneratorService {
         });
     }
 
-
     private String getPath(GeneratorDTO table, String template, String path) {
         return path + File.separator + getFileName(template, table);
     }
-
 
     /**
      * 获取文件名
@@ -124,7 +124,6 @@ public class GeneratorService {
         }
         return fileName;
     }
-
 
     /**
      * 初始化vm方法
@@ -182,6 +181,7 @@ public class GeneratorService {
      * 根据列的类型获取导入的包
      *
      * @param columns 列集合
+     *
      * @return 返回需要导入的包列表
      */
     private HashSet<String> getImportList(List<GeneratorDTO> columns) {

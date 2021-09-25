@@ -21,7 +21,7 @@
         from information_schema.tables
         where table_schema = (select database())
         and table_name in
-        <foreach collection="tables" item="name" open="(" separator="," close=")">
+        <foreach collection="tableNames" item="name" open="(" separator="," close=")">
             #{name}
         </foreach>
     </select>

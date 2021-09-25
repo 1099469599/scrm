@@ -12,13 +12,14 @@ import com.scrm.generator.utils.SpringUtils;
  * @since 2021年09月25日 23:01
  */
 @SpringBootApplication
-@MapperScan
+@MapperScan()
 public class GeneratorApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(GeneratorApplication.class);
 
-        GeneratorService bean = SpringUtils.getBean(GeneratorService.class);
-        bean.generatorCode("/Users/kiven/logs/scrm", "account");
+        // GeneratorService bean = SpringUtils.getBean(GeneratorService.class);
+        // bean.generatorCode("/Users/kiven/logs/scrm", "account");
+        System.exit(9);
     }
 }
