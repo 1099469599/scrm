@@ -7,8 +7,18 @@ import com.scrm.generator.constants.GenConstants;
 import com.scrm.generator.dto.GeneratorDTO;
 import com.scrm.generator.mapper.GeneratorMapper;
 import com.scrm.generator.utils.GenUtils;
+
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.Velocity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.CharsetUtil;
+import cn.hutool.core.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
@@ -42,7 +52,7 @@ public class GeneratorService {
      */
     public void generatorCode(String path, String... tableNames) {
         // 根据表名首先获取表的
-        List<GeneratorDTO> comment = generatorMapper.getComment(CollectionUtil.newArrayList(tableNames));
+        List<GeneratorDTO> comment = generatorMapper.getTables(CollectionUtil.newArrayList(tableNames));
         // 遍历comment去获取到表的列
         comment.forEach(k -> {
             List<GeneratorDTO> columnList = generatorMapper.getColumn(k.getTableName());

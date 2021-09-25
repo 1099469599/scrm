@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/scrm.iml" filepath="$PROJECT_DIR$/.idea/scrm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/scrm-generator/scrm-generator.iml" filepath="$PROJECT_DIR$/scrm-generator/scrm-generator.iml" />
       <module fileurl="file://$PROJECT_DIR$/scrm-web/scrm-web.iml" filepath="$PROJECT_DIR$/scrm-web/scrm-web.iml" />
     </modules>
   </component>
