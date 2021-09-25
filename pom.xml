@@ -6,6 +6,7 @@
 
     <modules>
         <module>scrm-web</module>
+        <module>scrm-generator</module>
     </modules>
 
     <parent>

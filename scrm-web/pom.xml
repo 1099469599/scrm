@@ -7,9 +7,13 @@
         <groupId>com.scrm</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
+
+
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>scrm-web</artifactId>
+
+    <description>web层应用</description>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
