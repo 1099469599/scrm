@@ -1,0 +1,13 @@
+package ${packageName}.wecom.service;
+
+import ${packageName}.wecom.domain.${ClassName};
+import com.baomidou.mybatisplus.extension.service.IService;
+/**
+ * ${functionName}Service接口
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+public interface ${ClassName}Service extends IService<${ClassName}> {
+
+}
