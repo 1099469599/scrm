@@ -12,6 +12,6 @@ public class ScrmApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ScrmApplication.class);
-        log.info("成功启动");
+        log.info("成功启动 +++++++");
     }
 }
