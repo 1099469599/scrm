@@ -19,6 +19,6 @@ public class GeneratorApplication {
         SpringApplication.run(GeneratorApplication.class);
 
         GeneratorService bean = SpringUtils.getBean(GeneratorService.class);
-        bean.generatorCode("/user", "sys_user");
+        bean.generatorCode("/Users/kiven/logs/scrm", "account");
     }
 }
