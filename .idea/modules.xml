@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/scrm.iml" filepath="$PROJECT_DIR$/.idea/scrm.iml" />
       <module fileurl="file://$PROJECT_DIR$/scrm-dao/scrm-dao.iml" filepath="$PROJECT_DIR$/scrm-dao/scrm-dao.iml" />
       <module fileurl="file://$PROJECT_DIR$/scrm-entity/scrm-entity.iml" filepath="$PROJECT_DIR$/scrm-entity/scrm-entity.iml" />
+      <module fileurl="file://$PROJECT_DIR$/scrm-framework/scrm-framework.iml" filepath="$PROJECT_DIR$/scrm-framework/scrm-framework.iml" />
       <module fileurl="file://$PROJECT_DIR$/scrm-generator/scrm-generator.iml" filepath="$PROJECT_DIR$/scrm-generator/scrm-generator.iml" />
       <module fileurl="file://$PROJECT_DIR$/scrm-service/scrm-service.iml" filepath="$PROJECT_DIR$/scrm-service/scrm-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/scrm-web/scrm-web.iml" filepath="$PROJECT_DIR$/scrm-web/scrm-web.iml" />

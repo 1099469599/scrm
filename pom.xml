@@ -10,6 +10,7 @@
         <module>scrm-entity</module>
         <module>scrm-dao</module>
         <module>scrm-service</module>
+        <module>scrm-framework</module>
     </modules>
 
     <parent>
@@ -31,6 +32,26 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.scrm</groupId>
+                <artifactId>scrm-entity</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.scrm</groupId>
+                <artifactId>scrm-dao</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.scrm</groupId>
+                <artifactId>scrm-service</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.scrm</groupId>
+                <artifactId>scrm-web</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
             <!-- Sa-Token 一套完整的权限控制 -->
             <dependency>
                 <groupId>cn.dev33</groupId>
