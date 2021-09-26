@@ -7,6 +7,9 @@
     <modules>
         <module>scrm-web</module>
         <module>scrm-generator</module>
+        <module>scrm-entity</module>
+        <module>scrm-dao</module>
+        <module>scrm-service</module>
     </modules>
 
     <parent>
@@ -40,6 +43,12 @@
                 <artifactId>hutool-all</artifactId>
                 <version>5.4.1</version>
             </dependency>
+            <!-- 快速转DTO,VO,QTO 工具  -->
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>1.4.2.Final</version>
+            </dependency>
             <!--    mybatis-plus    -->
             <dependency>
                 <groupId>com.baomidou</groupId>
@@ -50,7 +59,7 @@
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
-                <version>1.1.22</version>
+                <version>1.1.14</version>
             </dependency>
             <!--velocity代码生成使用模板 -->
             <dependency>

@@ -1,12 +1,12 @@
 package com.scrm.generator.utils;
 
+import cn.hutool.core.util.StrUtil;
 import com.scrm.generator.constants.GenConstants;
 import com.scrm.generator.dto.GeneratorDTO;
 
 import java.util.Arrays;
 import java.util.List;
 
-import cn.hutool.core.util.StrUtil;
 
 /**
  * 代码生成器 工具类
