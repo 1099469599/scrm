@@ -14,14 +14,14 @@
     </resultMap>
 
     <!--  根据表明获取表的备注  -->
-    <select id="getComment" resultMap="generatorResultMap" parameterType="java.lang.String">
+    <select id="getTables" resultMap="generatorResultMap" parameterType="java.lang.String">
         select
         table_name,
         table_comment
         from information_schema.tables
         where table_schema = (select database())
         and table_name in
-        <foreach collection="tables" item="name" open="(" separator="," close=")">
+        <foreach collection="tableNames" item="name" open="(" separator="," close=")">
             #{name}
         </foreach>
     </select>

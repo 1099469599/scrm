@@ -1,6 +1,3 @@
-/**
- * Copyright(C) 2021 Fugle Technology Co., Ltd. All rights reserved.
- */
 package com.scrm.generator.utils;
 
 import com.scrm.generator.constants.GenConstants;
@@ -8,6 +5,8 @@ import com.scrm.generator.dto.GeneratorDTO;
 
 import java.util.Arrays;
 import java.util.List;
+
+import cn.hutool.core.util.StrUtil;
 
 /**
  * 代码生成器 工具类
@@ -60,7 +59,7 @@ public class GenUtils {
      * @param targetValue 值
      * @return 是否包含
      */
-    public static boolean arraysContains(String[] arr, String targetValue) {
+    private static boolean arraysContains(String[] arr, String targetValue) {
         return Arrays.asList(arr).contains(targetValue);
     }
 
@@ -70,7 +69,7 @@ public class GenUtils {
      * @param columnType 列类型
      * @return 截取后的列类型
      */
-    public static String getDbType(String columnType) {
+    private static String getDbType(String columnType) {
         if (StrUtil.indexOfIgnoreCase(columnType, "(") > 0) {
             return StrUtil.subBefore(columnType, "(", false);
         } else {

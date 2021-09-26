@@ -1,6 +1,3 @@
-/**
- * Copyright(C) 2021 Fugle Technology Co., Ltd. All rights reserved.
- */
 package com.scrm.generator.dto;
 
 import lombok.Data;
