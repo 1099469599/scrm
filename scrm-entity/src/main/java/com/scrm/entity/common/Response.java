@@ -50,6 +50,12 @@ public class Response<T> {
         return result(CodeEnum.ERROR.getCode(), msg, null);
     }
 
+    /**
+     * 失败
+     */
+    public static <T> Response<T> error(CodeEnum err, T data) {
+        return result(err.getCode(), err.getMsg(), null);
+    }
 
     private static <T> Response<T> result(Integer code, String msg, T data) {
         Response<T> result = new Response<>();

@@ -1,5 +1,3 @@
-
-
 -- 企业相关配置
 DROP TABLE if EXISTS `we_corp_account`;
 CREATE TABLE `we_corp_account`

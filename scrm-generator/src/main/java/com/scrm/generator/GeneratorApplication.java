@@ -12,14 +12,14 @@ import com.scrm.generator.utils.SpringUtils;
  * @since 2021年09月25日 23:01
  */
 @SpringBootApplication
-@MapperScan()
+@MapperScan(basePackages = {"com.scrm.generator"})
 public class GeneratorApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(GeneratorApplication.class);
 
-         GeneratorService bean = SpringUtils.getBean(GeneratorService.class);
-         bean.generatorCode("/Users/mockuai/logs", "we_corp_account");
+        GeneratorService bean = SpringUtils.getBean(GeneratorService.class);
+        bean.generatorCode("/Users/mockuai/logs", "we_user");
         System.exit(9);
     }
 }
