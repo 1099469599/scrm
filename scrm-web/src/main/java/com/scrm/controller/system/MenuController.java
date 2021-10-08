@@ -1,6 +1,6 @@
 package com.scrm.controller.system;
 
-import com.scrm.common.service.LogService;
+import com.scrm.service.common.LogService;
 import com.scrm.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

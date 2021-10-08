@@ -18,8 +18,8 @@ public class GeneratorApplication {
     public static void main(String[] args) {
         SpringApplication.run(GeneratorApplication.class);
 
-        // GeneratorService bean = SpringUtils.getBean(GeneratorService.class);
-        // bean.generatorCode("/Users/kiven/logs/scrm", "account");
+         GeneratorService bean = SpringUtils.getBean(GeneratorService.class);
+         bean.generatorCode("/Users/mockuai/logs", "we_corp_account");
         System.exit(9);
     }
 }

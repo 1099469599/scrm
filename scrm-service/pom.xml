@@ -21,5 +21,9 @@
             <groupId>com.scrm</groupId>
             <artifactId>scrm-framework</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.scrm</groupId>
+            <artifactId>scrm-dao</artifactId>
+        </dependency>
     </dependencies>
 </project>

@@ -1,4 +1,4 @@
-package ${packageName}.wecom.domain;
+package ${packageName}.entity.pojo.wecom.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -20,7 +20,7 @@ import lombok.experimental.SuperBuilder;
 @Accessors(chain = true)
 @TableName("${tableName}")
 @SuperBuilder
-public class ${ClassName} extends BaseEntity{
+public class ${ClassName} extends BaseModel{
 
 
 #foreach ($column in $columns)

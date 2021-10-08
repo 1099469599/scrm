@@ -1,4 +1,4 @@
-package com.scrm.common.service;
+package com.scrm.service.common;
 
 /**
  * @author liuKevin

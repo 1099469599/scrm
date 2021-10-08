@@ -14,7 +14,6 @@ import ${packageName}.wecom.service.I${ClassName}Service;
  * @author ${author}
  * @date ${datetime}
  */
-@Component
 public class ${ClassName}Manager extends ServiceImpl<${ClassName}Mapper, ${ClassName}>  {
 
 }

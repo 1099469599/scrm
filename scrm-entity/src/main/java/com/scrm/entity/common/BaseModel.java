@@ -1,9 +1,13 @@
-package com.scrm.base;
+package com.scrm.entity.common;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 
@@ -12,6 +16,8 @@ import java.io.Serializable;
  * @date 2021年09月26日 16:46
  */
 @Data
+@SuperBuilder
+@NoArgsConstructor
 public class BaseModel implements Serializable {
 
     /**
@@ -23,6 +29,20 @@ public class BaseModel implements Serializable {
      * 企业Id
      */
     private String corpId;
+
+    /**
+     * 删除标示
+     * 0: 正常, 1: 删除
+     *
+     * @see com.scrm.entity.enums.BaseModelDelFlagEnum
+     */
+    @TableLogic(value = "0", delval = "1")
+    private String delFlag;
+
+    /**
+     * 删除时间戳
+     */
+    private Long deleteTimestamp;
 
     /**
      * 创建人
@@ -45,13 +65,5 @@ public class BaseModel implements Serializable {
      * 修改时间
      */
     private String updateTIme;
-
-    /**
-     * 删除标示
-     * 0: 正常, 1: 删除
-     * @see com.scrm.entity.enums.BaseModelDelFlagEnum
-     */
-    @TableLogic(value = "0", delval = "1")
-    private String delFlag;
 
 }

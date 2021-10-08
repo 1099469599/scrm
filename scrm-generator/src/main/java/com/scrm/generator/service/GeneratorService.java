@@ -106,7 +106,7 @@ public class GeneratorService {
         } else if (template.contains("manager.java.vm")) {
             fileName = StrUtil.format("{}/wecom/manager/{}Manager.java", javaPath, className);
         } else if (template.contains("service.java.vm")) {
-            fileName = StrUtil.format("{}/wecom/service/I{}Service.java", javaPath, className);
+            fileName = StrUtil.format("{}/wecom/service/{}Service.java", javaPath, className);
         } else if (template.contains("serviceImpl.java.vm")) {
             fileName = StrUtil.format("{}/wecom/service/impl/{}ServiceImpl.java", javaPath, className);
         } else if (template.contains("controller.java.vm")) {

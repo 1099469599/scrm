@@ -1,6 +1,6 @@
-package com.scrm.common.service.impl;
+package com.scrm.service.common.impl;
 
-import com.scrm.common.service.LogService;
+import com.scrm.service.common.LogService;
 import org.springframework.stereotype.Service;
 
 /**
