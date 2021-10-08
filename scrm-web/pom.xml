@@ -23,6 +23,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.scrm</groupId>
+            <artifactId>scrm-service</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
         </dependency>

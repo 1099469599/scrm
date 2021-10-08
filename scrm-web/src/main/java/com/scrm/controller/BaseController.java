@@ -1,4 +1,4 @@
 package com.scrm.controller;
 
-public class BaseContrller {
+public class BaseController {
 }
