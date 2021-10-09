@@ -54,8 +54,16 @@ public class Response<T> {
      * 失败
      */
     public static <T> Response<T> error(CodeEnum err, T data) {
-        return result(err.getCode(), err.getMsg(), null);
+        return result(err.getCode(), err.getMsg(), data);
     }
+
+    /**
+     * 失败
+     */
+    public static <T> Response<T> error(Integer errCode, String errMsg, T data) {
+        return result(errCode, errMsg, data);
+    }
+
 
     private static <T> Response<T> result(Integer code, String msg, T data) {
         Response<T> result = new Response<>();

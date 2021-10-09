@@ -27,7 +27,7 @@ public class GlobalExceptionHandler {
      */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(Exception.class)
-    public Response<String> exceptionHandler(Exception exception) {
+    public Response<String> handlerException(Exception exception) {
         log.error("exceptionHandle [{}]", exception.getMessage(), exception);
         return Response.error(CodeEnum.UNKNOWN_ERROR, exception.getMessage());
     }

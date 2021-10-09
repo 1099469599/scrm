@@ -1,9 +1,10 @@
 package com.scrm.entity.enums;
 
 /**
- * @Author：dcy
- * @Description: 公共类删除标识枚举类
- * @Date: 2021/9/2 15:28
+ * 公共类删除标识枚举类
+ *
+ * @author liuKevin
+ * @date 2021年10月08日 19:58
  */
 public enum BaseModelDelFlagEnum {
 

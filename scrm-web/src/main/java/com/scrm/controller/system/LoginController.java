@@ -1,12 +1,14 @@
 package com.scrm.controller.system;
 
+import cn.dev33.satoken.session.SaSession;
+import cn.dev33.satoken.stp.SaTokenInfo;
+import cn.dev33.satoken.stp.StpUtil;
 import com.scrm.base.BaseController;
-import com.scrm.dto.system.LoginDTO;
+import com.scrm.dto.user.UserInfo;
 import com.scrm.entity.common.Response;
 import com.scrm.query.system.LoginQuery;
 import com.scrm.service.biz.user.WeUserService;
 import com.scrm.service.common.CaptchaService;
-import com.scrm.transform.user.UserInfoMapper;
 import com.scrm.vo.system.CaptchaVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,12 +55,21 @@ public class LoginController extends BaseController {
         // 校验验证码
         captchaService.checkCaptcha(query.getUuid(), query.getCode());
         // 获取超管身份信息
-        weUserService.getSuperAdminByUsername(query.getUsername());
-        String token = "";
-        //
-        //
-        return success(token);
+        UserInfo info = weUserService.getSuperAdminByUsername(query.getUsername());
+        // TODO 设置权限
+        // TODO 设置允许访问的resource
+        // sa-token 登陆
+        StpUtil.login(info.getId());
+        // 获取token
+        SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
+        // 获取session
+        SaSession session = StpUtil.getSession();
+        // 设置用户信息
+        session.set("userInfo", info);
+        return success(tokenInfo.getTokenValue());
     }
+
+
 
 
 }

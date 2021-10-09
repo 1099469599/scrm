@@ -1,9 +1,12 @@
 package com.scrm.exception;
 
+import com.scrm.entity.enums.CodeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+
+import java.util.Objects;
 
 /**
  * 通用逻辑的错误
@@ -29,5 +32,9 @@ public class CommonException extends RuntimeException {
     public CommonException(String message, Throwable cause) {
         super(message, cause);
         this.errMsg = message;
+    }
+
+    public Integer getErrCode() {
+        return Objects.isNull(errCode) ? CodeEnum.BIZ_ERROR.getCode() : errCode;
     }
 }

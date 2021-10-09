@@ -2,15 +2,14 @@ package com.scrm.service.biz.user.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.scrm.dto.user.UserInfo;
+import com.scrm.entity.enums.UserType;
 import com.scrm.entity.pojo.user.WeUser;
 import com.scrm.exception.BizException;
 import com.scrm.manager.user.WeUserManager;
 import com.scrm.service.biz.user.WeUserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 
-import java.util.Objects;
 import java.util.Optional;
 
 
@@ -36,6 +35,6 @@ public class WeUserServiceImpl extends WeUserManager implements WeUserService {
     public UserInfo getSuperAdminByUsername(String mobile) {
         WeUser one = getOne(Wrappers.lambdaQuery(WeUser.class).eq(WeUser::getCorpId, DEFAULT_CORP).eq(WeUser::getMobile, mobile).last("limit 1"));
         Optional.ofNullable(one).orElseThrow(() -> new BizException("当前用户不存在"));
-        return null;
+        return transformInfo(one, UserType.SUPER_ADMIN);
     }
 }

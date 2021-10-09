@@ -14,6 +14,7 @@ public enum CodeEnum {
     ERROR(500, "操作失败"),
 
     CHECK_ERROR(1000, "校验公共错误"),
+    BIZ_ERROR(1001, "通用的业务错误"),
 
     TOKEN_ERROR(2000, "token错误"),
     NO_TOKEN_ERROR(2001, "没有token，请重新登录"),
