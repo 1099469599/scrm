@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerIntercep
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.scrm.db.interceptor.DataPermissionInterceptor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * mybatis-plus 配置类
@@ -14,6 +15,7 @@ import org.springframework.context.annotation.Bean;
  * @author liuKevin
  * @date 2021年10月08日 14:22
  */
+@Configuration
 public class MybatisPlusConfig {
 
     /**

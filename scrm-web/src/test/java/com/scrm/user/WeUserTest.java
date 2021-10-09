@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 /**
  * @author liuKevin
  * @date 2021年10月09日 11:32
@@ -23,9 +25,11 @@ public class WeUserTest extends BaseTest {
     @Test
     public void insertTest() {
         WeUser byId = weUserService.getById(10000L);
-        WeUser one = weUserService.getOne(Wrappers.lambdaQuery(WeUser.class).eq(WeUser::getUserId, "11"));
-        UserInfo obj = weUserService.getObj(Wrappers.lambdaQuery(WeUser.class).eq(WeUser::getId, 10000L), i -> UserInfoMapper.INSTANCE.userInfoConvert((WeUser) i));
-        weUserService.removeById(obj.getId());
+        WeUser one = weUserService.getOne(Wrappers.lambdaQuery(WeUser.class).eq(WeUser::getUserId, "1111"));
+//        List<Object> objects = weUserService.getBaseMapper().selectObjs(Wrappers.lambdaQuery(WeUser.class).eq(WeUser::getId, 10000L));
+//        List<Object> objects2 = weUserService.getBaseMapper().selectObjs(Wrappers.lambdaQuery(WeUser.class).eq(WeUser::getUserId, "1111"));
+        UserInfo obj = weUserService.getObj(Wrappers.lambdaQuery(WeUser.class).eq(WeUser::getId, 10000L), i -> UserInfoMapper.INSTANCE.userInfoConvert(weUserService.getById((long)i)));
+//        weUserService.removeById(obj.getId());
         log.info("sss");
     }
 
