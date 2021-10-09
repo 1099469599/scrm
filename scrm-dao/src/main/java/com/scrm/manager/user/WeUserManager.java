@@ -1,11 +1,11 @@
 package com.scrm.manager.user;
 
 import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.scrm.dto.user.UserInfo;
+import com.scrm.entity.common.BaseManager;
 import com.scrm.entity.enums.UserType;
 import com.scrm.entity.pojo.user.WeUser;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.scrm.mapper.user.WeUserMapper;
 import com.scrm.transform.user.UserInfoMapper;
 

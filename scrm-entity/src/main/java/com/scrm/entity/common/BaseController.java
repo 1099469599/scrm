@@ -1,4 +1,4 @@
-package com.scrm.base;
+package com.scrm.entity.common;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.scrm.entity.common.PageResult;

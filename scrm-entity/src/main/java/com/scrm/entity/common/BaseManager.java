@@ -1,4 +1,4 @@
-package com.scrm.base;
+package com.scrm.entity.common;
 
 
 import cn.hutool.core.util.StrUtil;

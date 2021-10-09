@@ -34,7 +34,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(new SaRouteInterceptor((request, response, handler) -> {
             String url = URLUtil.getPath(request.getRequestPath());
             // 所有的URL请求都需要优先判断当前用户是否登陆
-            SaRouter.match("/**", StpUtil::checkLogin);
+            SaRouter.match("/scrm/**", StpUtil::checkLogin);
             // 获取所有的路由表
 //            List<Resources> resourcesList = resourcesService.getRouterList();
 //            for (Resources resources : resourcesList) {

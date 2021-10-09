@@ -21,6 +21,10 @@
             <groupId>com.scrm</groupId>
             <artifactId>scrm-entity</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.scrm</groupId>
+            <artifactId>scrm-dao</artifactId>
+        </dependency>
 
         <!-- Hutool是一个Java工具包 -->
         <dependency>

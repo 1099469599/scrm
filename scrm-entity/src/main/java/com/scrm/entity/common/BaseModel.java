@@ -64,6 +64,6 @@ public class BaseModel implements Serializable {
     /**
      * 修改时间
      */
-    private String updateTIme;
+    private String updateTime;
 
 }

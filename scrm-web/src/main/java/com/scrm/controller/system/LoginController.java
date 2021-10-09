@@ -3,9 +3,10 @@ package com.scrm.controller.system;
 import cn.dev33.satoken.session.SaSession;
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
-import com.scrm.base.BaseController;
+import com.scrm.entity.common.BaseController;
 import com.scrm.dto.user.UserInfo;
 import com.scrm.entity.common.Response;
+import com.scrm.entity.constants.Constant;
 import com.scrm.query.system.LoginQuery;
 import com.scrm.service.biz.user.WeUserService;
 import com.scrm.service.common.CaptchaService;
@@ -65,11 +66,9 @@ public class LoginController extends BaseController {
         // 获取session
         SaSession session = StpUtil.getSession();
         // 设置用户信息
-        session.set("userInfo", info);
+        session.set(Constant.SESSION_USER_KEY, info);
         return success(tokenInfo.getTokenValue());
     }
-
-
 
 
 }
