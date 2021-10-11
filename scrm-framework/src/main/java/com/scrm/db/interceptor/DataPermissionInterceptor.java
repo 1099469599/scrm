@@ -1,11 +1,21 @@
 package com.scrm.db.interceptor;
 
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.toolkit.PluginUtils;
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.extension.parser.JsqlParserSupport;
 import com.baomidou.mybatisplus.extension.plugins.inner.InnerInterceptor;
+import com.scrm.annotation.DataScope;
 import com.scrm.context.BaseContextHandler;
 import lombok.extern.slf4j.Slf4j;
+import net.sf.jsqlparser.expression.Parenthesis;
+import net.sf.jsqlparser.expression.StringValue;
+import net.sf.jsqlparser.expression.operators.conditional.AndExpression;
+import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
+import net.sf.jsqlparser.expression.operators.relational.InExpression;
+import net.sf.jsqlparser.expression.operators.relational.ItemsList;
+import net.sf.jsqlparser.schema.Column;
 import net.sf.jsqlparser.statement.select.PlainSelect;
 import net.sf.jsqlparser.statement.select.Select;
 import org.apache.ibatis.cache.CacheKey;
@@ -19,6 +29,9 @@ import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author liuKevin
@@ -42,7 +55,7 @@ public class DataPermissionInterceptor extends JsqlParserSupport implements Inne
      * @param boundSql      boundSql
      */
     @Override
-    public void beforeQuery(Executor executor, MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) throws SQLException {
+    public void beforeQuery(Executor executor, MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) {
         PluginUtils.MPBoundSql mpBs = PluginUtils.mpBoundSql(boundSql);
         mpBs.sql(parserSingle(mpBs.sql(), ms));
     }
@@ -62,42 +75,86 @@ public class DataPermissionInterceptor extends JsqlParserSupport implements Inne
         if (!SqlCommandType.SELECT.equals(ms.getSqlCommandType())) {
             return;
         }
+        // 拿到当前线程内部的userId
         final String userId = BaseContextHandler.getUserID();
         if (StrUtil.isBlank(userId)) {
             return;
         }
         PlainSelect plainSelect = (PlainSelect) select.getSelectBody();
+        // 处理user_id
         authHandler(userId, ms, plainSelect);
     }
 
     /**
      * 鉴权处理
      *
-     * @param userId
-     * @param ms
-     * @param plainSelect
+     * @param userId      用户Id
+     * @param ms          ms
+     * @param plainSelect plainSelect
      */
     private void authHandler(String userId, MappedStatement ms, PlainSelect plainSelect) {
-        log.info("userID  {} ", userId);
         //获取执行方法的位置
         String namespace = ms.getId();
-        log.info("namespace  {} ", namespace);
         //获取mapper名称
         String className = StrUtil.subBefore(namespace, ".", true);
-        log.info("className  {} ", className);
         //获取方法名
         String methodName = StrUtil.subAfter(namespace, ".", true);
-        log.info("methodName  {} ", methodName);
         try {
             final Method[] methods = Class.forName(className).getDeclaredMethods();
             for (Method method : methods) {
+                // 找到对应的方法
                 if (method.getName().equals(methodName)) {
-                    // TODO 处理数据权限
+                    DataScope dataScope = method.getAnnotation(DataScope.class);
+                    if (dataScope != null && dataScope.used()) {
+                        log.info("[authHandler] userId:[{}], namespace:[{}], className:[{}], method:[{}] ", userId, namespace, className, methodName);
+                        dataPermissionHandler(userId, dataScope, plainSelect);
+                    }
                 }
             }
         } catch (ClassNotFoundException e) {
             log.error("找不到文件 {}", e.toString());
         }
+    }
+
+    /**
+     * 数据权限处理
+     *
+     * @param userId      用户id
+     * @param dataScope   annotation
+     * @param plainSelect sql
+     */
+    private void dataPermissionHandler(String userId, DataScope dataScope, PlainSelect plainSelect) {
+        // TODO 获取当前用户权限下的用户Id集合, 为了避免收到PageHelp的影响, 所以此处避免查询, 直接获取已经存在的数据
+        List<String> permissionUserIdList = new ArrayList<>();
+        if (CollectionUtil.isEmpty(permissionUserIdList)) {
+            log.warn("[dataPermissionHandler] 当前用户不存在下属员工, 可能是没有登陆, 也可能是超管, userId:[{}]", userId);
+            return;
+        }
+        //
+        ItemsList itemsList = new ExpressionList(permissionUserIdList.stream().map(StringValue::new).collect(Collectors.toList()));
+        String column = getAliasColumn(dataScope);
+        InExpression inExpression = new InExpression(new Column(column), itemsList);
+        if (null == plainSelect.getWhere()) {
+            // 不存在 where 条件
+            plainSelect.setWhere(new Parenthesis(inExpression));
+        } else {
+            // 存在 where 条件 and 处理
+            plainSelect.setWhere(new AndExpression(plainSelect.getWhere(), inExpression));
+        }
+    }
+
+    /**
+     * 获取字段名称
+     *
+     * @param dataScope annotation
+     * @return 字段名
+     */
+    private String getAliasColumn(DataScope dataScope) {
+        String column = dataScope.name();
+        if (StrUtil.isNotBlank(dataScope.alias())) {
+            column = StrUtil.builder().append(dataScope.alias()).append(StringPool.DOT).append(dataScope.name()).toString();
+        }
+        return column;
     }
 
 }

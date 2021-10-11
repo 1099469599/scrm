@@ -1,7 +1,7 @@
 package com.scrm.web.handle;
 
 import com.scrm.entity.common.Response;
-import com.scrm.entity.enums.CodeEnum;
+import com.scrm.exception.AuthException;
 import com.scrm.exception.CommonException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
@@ -33,5 +33,16 @@ public class FrameworkExceptionHandle {
         return Response.error(exception.getErrCode(), exception.getErrMsg(), exception.getMessage());
     }
 
+    /**
+     * 业务异常中的权限异常
+     *
+     * @param exception {@link AuthException}
+     */
+    @ResponseStatus(HttpStatus.OK)
+    @ExceptionHandler(AuthException.class)
+    public Response<String> handleAuthException(AuthException exception) {
+        log.error("authException: [{}]", exception.getErrMsg(), exception);
+        return Response.error(exception.getErrCode(), exception.getErrMsg(), exception.getMessage());
+    }
 
 }

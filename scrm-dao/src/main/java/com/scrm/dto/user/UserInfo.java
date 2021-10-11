@@ -42,6 +42,10 @@ public class UserInfo {
      */
     private List<Long> deptIdList;
     /**
+     * 当前用户权限下的用户集合
+     */
+    private List<String> permissionUserId;
+    /**
      * 用户身份
      * 超管 {@link UserType#SUPER_ADMIN}
      * 企业管理员 {@link UserType#ADMIN}

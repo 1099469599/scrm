@@ -1,11 +1,8 @@
 package com.scrm.transform.user;
 
-import com.scrm.dto.system.LoginDTO;
 import com.scrm.dto.user.UserInfo;
 import com.scrm.entity.pojo.user.WeUser;
-import com.scrm.query.system.LoginQuery;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -13,11 +10,9 @@ import org.mapstruct.factory.Mappers;
  * @date 2021年10月08日 16:57
  */
 @Mapper(componentModel = "spring")
-public interface UserInfoMapper {
+public interface MWeUserMapper {
 
-    UserInfoMapper INSTANCE = Mappers.getMapper(UserInfoMapper.class);
-
-    LoginDTO loginQueryConvert(LoginQuery query);
+    MWeUserMapper INSTANCE = Mappers.getMapper(MWeUserMapper.class);
 
     UserInfo userInfoConvert(WeUser pojo);
 

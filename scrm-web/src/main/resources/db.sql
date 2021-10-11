@@ -1,3 +1,97 @@
+-- 角色相关
+DROP TABLE IF EXISTS `we_role`;
+CREATE TABLE `we_role`
+(
+    `id`               bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+    `corp_id`          varchar(128)        DEFAULT '' COMMENT '企业ID',
+    `role_name`        varchar(64)         DEFAULT '' COMMENT '角色名称',
+    `role_sort`        tinyint(4)          DEFAULT '0' COMMENT '显示顺序',
+    `data_scope`       tinyint(4)          DEFAULT '4' COMMENT '数据范围(1:全部数据权限 2:本部门数据权限 3:本部门及以下数据权限 4:仅个人数据权限)',
+    `visible`          tinyint(4)          DEFAULT '0' COMMENT '是否可见(0=可见,1=不可见)',
+    `status`           tinyint(4)          DEFAULT '0' COMMENT '是否有效(0=有效, 1=无效)',
+    `remark`           varchar(512)        DEFAULT '' COMMENT '备注',
+    `del_flag`         tinyint(4)          DEFAULT '0' COMMENT '删除标志（0代表存在 1代表删除）',
+    `delete_timestamp` bigint(20) NOT NULL DEFAULT '0' COMMENT '删除时间戳',
+    `create_by`        varchar(256)        DEFAULT '' COMMENT '创建者',
+    `create_time`      datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_by`        varchar(256)        DEFAULT '' COMMENT '更新者',
+    `update_time`      datetime            DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+    PRIMARY KEY (`id`) USING BTREE,
+    KEY `idx_corpid_delflag` (`corp_id`, `del_flag`) USING BTREE
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 10000
+  DEFAULT CHARSET = utf8mb4 COMMENT ='角色信息表';
+
+
+-- 菜单相关
+DROP TABLE IF EXISTS `we_menu`;
+CREATE TABLE `we_menu`
+(
+    `id`               bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+    `parent_id`        bigint(20)          DEFAULT '0' COMMENT '父菜单ID',
+    `name`             varchar(64)         DEFAULT '' COMMENT '菜单名称',
+    `type`             tinyint(4)          DEFAULT '1' COMMENT '菜单类型(菜单<10, 接口=10)',
+    `order_num`        int(11)             DEFAULT '0' COMMENT '显示顺序',
+    `path`             varchar(256)        DEFAULT '' COMMENT '路由地址',
+    `component`        varchar(256)        DEFAULT NULL COMMENT '组件路径',
+    `icon`             varchar(128)        DEFAULT '#' COMMENT '菜单图标',
+    `visible`          tinyint(4)          DEFAULT '0' COMMENT '菜单状态(0:显示,1:隐藏,2:仅超管可见)',
+    `status`           tinyint(4)          DEFAULT '0' COMMENT '菜单状态（0正常,1停用）',
+    `remark`           varchar(512)        DEFAULT '' COMMENT '备注',
+    `del_flag`         tinyint(4)          DEFAULT '0' COMMENT '删除标志（0未删除、1已删除）',
+    `delete_timestamp` bigint(20) NOT NULL DEFAULT '0' COMMENT '删除时间戳',
+    `create_by`        varchar(256)        DEFAULT '' COMMENT '创建者',
+    `create_time`      datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_by`        varchar(256)        DEFAULT '' COMMENT '更新者',
+    `update_time`      datetime            DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 10000
+  DEFAULT CHARSET = utf8mb4 COMMENT ='菜单权限表';
+
+
+-- 菜单和角色的关联表
+DROP TABLE IF EXISTS `we_role_menu`;
+CREATE TABLE `we_role_menu`
+(
+    `id`               bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+    `corp_id`          varchar(128) DEFAULT '' COMMENT '企业ID',
+    `role_id`          bigint(20)   DEFAULT '0' COMMENT '角色ID(=we_role.id)',
+    `menu_id`          bigint(20)   DEFAULT '0' COMMENT '菜单ID(=we_menu.id)',
+    `del_flag`         tinyint(4)   DEFAULT '0' COMMENT '删除标志（0未删除、1已删除）',
+    `delete_timestamp` bigint(20)   DEFAULT '0' COMMENT '删除时间戳',
+    `create_by`        varchar(256) DEFAULT '' COMMENT '创建人员',
+    `create_time`      datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_by`        varchar(256) DEFAULT '' COMMENT '修改人员',
+    `update_time`      datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+    PRIMARY KEY (`id`) USING BTREE,
+    KEY `idx_corpId_roleId_menuId` (`corp_id`, `role_id`, `menu_id`) USING BTREE
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 153775
+  DEFAULT CHARSET = utf8mb4 COMMENT ='角色和菜单关联表';
+
+-- 用户和角色的关联表
+DROP TABLE IF EXISTS `we_user_role`;
+CREATE TABLE `we_user_role`
+(
+    `id`               bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+    `corp_id`          varchar(128) DEFAULT '' COMMENT '企业ID',
+    `role_id`          bigint(20)   DEFAULT '0' COMMENT '角色ID(=we_role.id)',
+    `user_id`          bigint(20)   DEFAULT '0' COMMENT '用户Id(=we_user.id)',
+    `user_com_id`      varchar(256) DEFAULT '' COMMENT '用户ID(=we_user.user_id)',
+    `del_flag`         tinyint(4)   DEFAULT '0' COMMENT '删除标志（0代表存在 1代表删除）',
+    `delete_timestamp` bigint(20)   DEFAULT '0' COMMENT '删除时间戳',
+    `create_by`        varchar(256) DEFAULT '' COMMENT '创建者',
+    `create_time`      datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_by`        varchar(256) DEFAULT '' COMMENT '更新者',
+    `update_time`      datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+    PRIMARY KEY (`id`) USING BTREE,
+    KEY `idx_corpid_userid` (`corp_id`, `user_id`) USING BTREE
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 629
+  DEFAULT CHARSET = utf8mb4 COMMENT ='用户和角色关联表';
+
+
 -- 企业相关配置
 DROP TABLE if EXISTS `we_corp_account`;
 CREATE TABLE `we_corp_account`
@@ -34,7 +128,6 @@ CREATE TABLE `we_corp_account`
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 10000
   DEFAULT CHARSET = utf8mb4 COMMENT ='企业相关配置';
-
 
 -- 通讯录相关用户
 DROP TABLE if EXISTS `we_user`;

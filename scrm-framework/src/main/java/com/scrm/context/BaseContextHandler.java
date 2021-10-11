@@ -1,6 +1,7 @@
 package com.scrm.context;
 
 import cn.hutool.core.util.NumberUtil;
+import com.scrm.entity.enums.UserType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +16,7 @@ public class BaseContextHandler {
     private static final String CONTEXT_KEY_USER_ID = "currentUserId";
     private static final String CONTEXT_KEY_USERNAME = "currentUserName";
     private static final String CONTEXT_KEY_CORP_ID = "currentCorpId";
+    private static final String CONTEXT_USER_TYPE = "currentUserType";
 
     public static void set(String key, Object value) {
         Map<String, Object> map = threadLocal.get();
@@ -68,6 +70,19 @@ public class BaseContextHandler {
     public static String getCorpId() {
         Object value = get(CONTEXT_KEY_CORP_ID);
         return returnObjectValue(value);
+    }
+
+    public static void setUserType(UserType userType) {
+        set(CONTEXT_USER_TYPE, userType);
+    }
+
+    public static UserType getUserType() {
+        Object value = get(CONTEXT_USER_TYPE);
+        return value == null ? UserType.EMPLOY : (UserType) value;
+    }
+
+    public static boolean isSuperAdmin() {
+        return getUserType().equals(UserType.SUPER_ADMIN);
     }
 
     private static String returnObjectValue(Object value) {

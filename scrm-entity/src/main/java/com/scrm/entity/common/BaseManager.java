@@ -8,7 +8,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.scrm.entity.common.PageModel;
+
+import java.util.function.Function;
 
 /**
  * @author liuKevin
@@ -30,6 +31,20 @@ public class BaseManager<M extends BaseMapper<T>, T> extends ServiceImpl<M, T> {
     protected <T1> IPage<T1> page(PageModel pageModel, Wrapper<T1> queryWrapper) {
         IPage<T> page = getPageInfo(pageModel);
         return (IPage<T1>) page(page, (Wrapper<T>) queryWrapper);
+    }
+
+    /**
+     * 分页查询
+     *
+     * @param pageModel    pageModel
+     * @param queryWrapper query
+     * @param mapper       转化函数
+     * @return 分页结果
+     */
+    protected <R> IPage<R> page(PageModel pageModel, Wrapper<T> queryWrapper, Function<? super T, R> mapper) {
+        IPage<T> page = getPageInfo(pageModel);
+        IPage<T> result = page(page, queryWrapper);
+        return result.convert(mapper);
     }
 
 

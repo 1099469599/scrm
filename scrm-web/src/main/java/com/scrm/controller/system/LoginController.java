@@ -32,7 +32,6 @@ public class LoginController extends BaseController {
     @Autowired
     private WeUserService weUserService;
 
-
     /**
      * 获取验证码
      *
@@ -59,6 +58,7 @@ public class LoginController extends BaseController {
         UserInfo info = weUserService.getSuperAdminByUsername(query.getUsername());
         // TODO 设置权限
         // TODO 设置允许访问的resource
+        // TODO 设置数据权限掌控范围
         // sa-token 登陆
         StpUtil.login(info.getId());
         // 获取token

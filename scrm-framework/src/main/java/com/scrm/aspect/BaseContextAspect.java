@@ -22,6 +22,7 @@ public class BaseContextAspect {
 
     /**
      * 切入点
+     * controller
      */
     @Pointcut("execution(public * com.scrm.*.controller..*(..)) ")
     public void controllerMethod() {
@@ -49,7 +50,7 @@ public class BaseContextAspect {
      * 后置通知
      */
     @AfterReturning(returning = "rvt", pointcut = "controllerMethod()")
-    public void logResultVoInfo(Object rvt) throws Exception {
+    public void logResultVoInfo(Object rvt) {
         BaseContextHandler.remove();
     }
 
