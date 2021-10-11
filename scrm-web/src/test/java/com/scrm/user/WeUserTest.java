@@ -1,11 +1,9 @@
 package com.scrm.user;
 
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.scrm.BaseTest;
 import com.scrm.dto.user.UserInfo;
-import com.scrm.entity.pojo.user.WeUser;
-import com.scrm.service.biz.user.WeUserService;
-import com.scrm.transform.user.MWeUserMapper;
+import com.scrm.service.biz.user.impl.WeUserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,16 +16,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class WeUserTest extends BaseTest {
 
     @Autowired
-    private WeUserService weUserService;
+    private WeUserServiceImpl weUserService;
 
     @Test
     public void insertTest() {
-        WeUser byId = weUserService.getById(10000L);
-        WeUser one = weUserService.getOne(Wrappers.lambdaQuery(WeUser.class).eq(WeUser::getUserId, "1111"));
-//        List<Object> objects = weUserService.getBaseMapper().selectObjs(Wrappers.lambdaQuery(WeUser.class).eq(WeUser::getId, 10000L));
-//        List<Object> objects2 = weUserService.getBaseMapper().selectObjs(Wrappers.lambdaQuery(WeUser.class).eq(WeUser::getUserId, "1111"));
-        UserInfo obj = weUserService.getObj(Wrappers.lambdaQuery(WeUser.class).eq(WeUser::getId, 10000L), i -> MWeUserMapper.INSTANCE.userInfoConvert(weUserService.getById((long)i)));
-//        weUserService.removeById(obj.getId());
+        IPage<UserInfo> page = weUserService.page(1, 1);
+        IPage<UserInfo> page2 = weUserService.page(2, 1);
+        IPage<UserInfo> page3 = weUserService.page(3, 1);
         log.info("sss");
     }
 

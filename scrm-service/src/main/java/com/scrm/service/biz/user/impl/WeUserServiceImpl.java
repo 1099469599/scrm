@@ -1,12 +1,15 @@
 package com.scrm.service.biz.user.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.scrm.dto.user.UserInfo;
+import com.scrm.entity.common.PageModel;
 import com.scrm.entity.enums.UserType;
 import com.scrm.entity.pojo.user.WeUser;
 import com.scrm.exception.BizException;
 import com.scrm.manager.user.WeUserManager;
 import com.scrm.service.biz.user.WeUserService;
+import com.scrm.transform.user.MWeUserMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +27,12 @@ public class WeUserServiceImpl extends WeUserManager implements WeUserService {
 
     @Value("${default_corp:wwb7bc0ee558e60842}")
     private String DEFAULT_CORP;
+
+    @Override
+    public IPage<UserInfo> page(Integer pageNum, Integer pageSize) {
+        PageModel pageModel = PageModel.builder().currentPageIndex(pageNum).currentPageSize(pageSize).build();
+        return page(pageModel, Wrappers.emptyWrapper(), MWeUserMapper.INSTANCE::userInfoConvert);
+    }
 
     /**
      * 根据手机号获取超管信息

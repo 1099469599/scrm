@@ -1,5 +1,6 @@
 package com.scrm.service.biz.user;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.scrm.dto.user.UserInfo;
 import com.scrm.entity.pojo.user.WeUser;
@@ -11,6 +12,15 @@ import com.scrm.entity.pojo.user.WeUser;
  * @date 2021-10-08 16:46:36
  */
 public interface WeUserService extends IService<WeUser> {
+
+    /**
+     * 分页
+     *
+     * @param pageNum  当前页数
+     * @param pageSize 每页条数
+     */
+    IPage<UserInfo> page(Integer pageNum, Integer pageSize);
+
 
     /**
      * 根据手机号获取超管信息
