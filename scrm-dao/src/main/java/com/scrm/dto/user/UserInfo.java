@@ -44,7 +44,15 @@ public class UserInfo {
     /**
      * 当前用户权限下的用户集合
      */
-    private List<String> permissionUserId;
+    private List<Long> permissionUserId;
+    /**
+     * 接口权限集合
+     */
+    private List<String> permissionList;
+    /**
+     * 菜单权限集合
+     */
+    private List<String> resources;
     /**
      * 用户身份
      * 超管 {@link UserType#SUPER_ADMIN}
