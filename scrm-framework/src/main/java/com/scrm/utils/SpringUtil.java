@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  * @since 2021年09月25日 23:11
  */
 @Component
-public final class SpringUtils implements BeanFactoryPostProcessor, ApplicationContextAware {
+public final class SpringUtil implements BeanFactoryPostProcessor, ApplicationContextAware {
 
     private static ConfigurableListableBeanFactory beanFactory;
 
@@ -21,12 +21,12 @@ public final class SpringUtils implements BeanFactoryPostProcessor, ApplicationC
 
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
-        SpringUtils.beanFactory = configurableListableBeanFactory;
+        SpringUtil.beanFactory = configurableListableBeanFactory;
     }
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        SpringUtils.applicationContext = applicationContext;
+        SpringUtil.applicationContext = applicationContext;
     }
 
     /**
