@@ -13,6 +13,7 @@ import com.scrm.transform.user.MWeUserMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -45,5 +46,18 @@ public class WeUserServiceImpl extends WeUserManager implements WeUserService {
         WeUser one = getOne(Wrappers.lambdaQuery(WeUser.class).eq(WeUser::getCorpId, DEFAULT_CORP).eq(WeUser::getMobile, mobile).last("limit 1"));
         Optional.ofNullable(one).orElseThrow(() -> new BizException("当前用户不存在"));
         return transformInfo(one, UserType.SUPER_ADMIN);
+    }
+
+    /**
+     * 查询当前用户权限下的用户Id集合
+     *
+     * @param corpId 企业唯一标示
+     * @param userId 用户Id(=we_user.id)
+     * @return 人员Id集合
+     */
+    @Override
+    public List<Long> getPermissionUserList(String corpId, Long userId) {
+        // TODO
+        return null;
     }
 }

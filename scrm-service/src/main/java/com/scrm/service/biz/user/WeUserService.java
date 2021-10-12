@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.scrm.dto.user.UserInfo;
 import com.scrm.entity.pojo.user.WeUser;
 
+import java.util.List;
+
 /**
  * 通讯录相关用户Service接口
  *
@@ -29,4 +31,13 @@ public interface WeUserService extends IService<WeUser> {
      * @return 用户信息
      */
     UserInfo getSuperAdminByUsername(String mobile);
+
+    /**
+     * 查询当前用户权限下的用户Id集合
+     *
+     * @param corpId 企业唯一标示
+     * @param userId 用户Id(=we_user.id)
+     * @return 人员Id集合
+     */
+    List<Long> getPermissionUserList(String corpId, Long userId);
 }

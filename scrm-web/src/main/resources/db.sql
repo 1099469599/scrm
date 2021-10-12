@@ -167,3 +167,25 @@ CREATE TABLE `we_user`
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 10000
   DEFAULT CHARSET = utf8mb4 COMMENT ='通讯录相关用户';
+
+-- 部门相关
+DROP TABLE IF EXISTS `we_department`;
+CREATE TABLE `we_department`
+(
+    `id`               bigint(20) NOT NULL AUTO_INCREMENT,
+    `corp_id`          varchar(128) DEFAULT '' COMMENT '企业ID',
+    `name`             varchar(64)  DEFAULT '' COMMENT '部门名称',
+    `department_id`    bigint(20)   DEFAULT 0 DEFAULT '0' COMMENT '部门id',
+    `parent_id`        bigint(20)   DEFAULT 0 COMMENT '父部门id',
+    `path`             varchar(256) DEFAULT '' COMMENT '当前组织全路径',
+    `del_flag`         tinyint(4)   DEFAULT '0' COMMENT '删除标志（0代表存在 1代表删除）',
+    `delete_timestamp` bigint(20)   DEFAULT '0' COMMENT '删除时间戳',
+    `create_by`        varchar(256) DEFAULT '' COMMENT '创建者',
+    `create_time`      datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_by`        varchar(256) DEFAULT '' COMMENT '更新者',
+    `update_time`      datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+    PRIMARY KEY (`id`) USING BTREE,
+    KEY `idx_corpid_departmentid` (`corp_id`, `department_id`) USING BTREE
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 1391
+  DEFAULT CHARSET = utf8mb4 COMMENT ='企业微信组织架构';

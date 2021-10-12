@@ -18,7 +18,7 @@ public class GeneratorApplication {
         SpringApplication.run(GeneratorApplication.class);
 
         GeneratorService bean = SpringUtils.getBean(GeneratorService.class);
-        bean.generatorCode("/Users/mockuai/logs", "we_user_role");
+        bean.generatorCode("/Users/mockuai/logs", "we_department");
         System.exit(9);
     }
 }

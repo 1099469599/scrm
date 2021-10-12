@@ -1,8 +1,10 @@
 package com.scrm.user;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.scrm.BaseTest;
 import com.scrm.dto.user.UserInfo;
+import com.scrm.entity.pojo.user.WeUser;
 import com.scrm.service.biz.user.impl.WeUserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -26,5 +28,17 @@ public class WeUserTest extends BaseTest {
         log.info("sss");
     }
 
+
+    @Test
+    public void removeTest() {
+        weUserService.remove(Wrappers.lambdaQuery(WeUser.class)
+                .eq(WeUser::getCorpId, "1111")
+                .eq(WeUser::getHeadImageUrl, "11"));
+
+//        WeUser byId = weUserService.getById(10000);
+//        if (Objects.nonNull(byId)) {
+//            weUserService.removeById(byId);
+//        }
+    }
 
 }

@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.scrm.db.interceptor.DataPermissionInterceptor;
+import com.scrm.db.interceptor.DeleteInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -25,9 +26,11 @@ public class MybatisPlusConfig {
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         MybatisPlusInterceptor mybatisPlusInterceptor = new MybatisPlusInterceptor();
         // 数据权限拦截器
-         mybatisPlusInterceptor.addInnerInterceptor(new DataPermissionInterceptor());
+        mybatisPlusInterceptor.addInnerInterceptor(new DataPermissionInterceptor());
         // 分页拦截器
         mybatisPlusInterceptor.addInnerInterceptor(new PaginationInnerInterceptor());
+        // 删除时添加删除时间戳
+        mybatisPlusInterceptor.addInnerInterceptor(new DeleteInterceptor());
         // 攻击 SQL 阻断解析器,防止全表更新与删除
         mybatisPlusInterceptor.addInnerInterceptor(new BlockAttackInnerInterceptor());
         return mybatisPlusInterceptor;
