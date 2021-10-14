@@ -2,7 +2,9 @@ package com.scrm.web.handle;
 
 import com.scrm.entity.common.Response;
 import com.scrm.exception.AuthException;
+import com.scrm.exception.BizException;
 import com.scrm.exception.CommonException;
+import com.scrm.exception.WeComException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
@@ -44,5 +46,30 @@ public class FrameworkExceptionHandle {
         log.error("authException: [{}]", exception.getErrMsg(), exception);
         return Response.error(exception.getErrCode(), exception.getErrMsg(), exception.getMessage());
     }
+
+    /**
+     * 业务异常
+     *
+     * @param exception {@link BizException}
+     */
+    @ResponseStatus(HttpStatus.OK)
+    @ExceptionHandler(BizException.class)
+    public Response<String> handleBizException(BizException exception) {
+        log.error("bizException: [{}]", exception.getErrMsg(), exception);
+        return Response.error(exception.getErrCode(), exception.getErrMsg(), exception.getMessage());
+    }
+
+    /**
+     * 业务异常中关于企微的相关异常
+     *
+     * @param exception {@link WeComException}
+     */
+    @ResponseStatus(HttpStatus.OK)
+    @ExceptionHandler(WeComException.class)
+    public Response<String> handleWeComException(WeComException exception) {
+        log.error("wecomException: [{}]", exception.getErrMsg(), exception);
+        return Response.error(exception.getErrCode(), exception.getErrMsg(), exception.getMessage());
+    }
+
 
 }

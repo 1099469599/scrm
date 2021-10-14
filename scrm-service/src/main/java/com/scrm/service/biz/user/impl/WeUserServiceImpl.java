@@ -2,6 +2,7 @@ package com.scrm.service.biz.user.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.scrm.annotation.CacheExpire;
 import com.scrm.dto.user.UserInfo;
 import com.scrm.entity.common.PageModel;
 import com.scrm.entity.enums.UserType;
@@ -11,6 +12,7 @@ import com.scrm.manager.user.WeUserManager;
 import com.scrm.service.biz.user.WeUserService;
 import com.scrm.transform.user.MWeUserMapper;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
