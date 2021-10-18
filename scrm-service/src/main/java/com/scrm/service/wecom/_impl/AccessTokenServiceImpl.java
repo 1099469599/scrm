@@ -138,7 +138,7 @@ public class AccessTokenServiceImpl implements AccessTokenService {
     @Cacheable(cacheNames = "accessToken", key = "#account.corpId + ':' + #type")
     @CacheExpire
     public String createContactAccessToken(String type, WeCorpAccount account) {
-        WeAccessTokenDTO accessToken = accessTokenClient.getAccessToken(account.getCorpId(), account.getCorpSecret());
+        WeAccessTokenDTO accessToken = accessTokenClient.getAccessToken(account.getCorpId(), account.getContactSecret());
         return accessToken.getAccess_token();
     }
 

@@ -129,6 +129,19 @@ CREATE TABLE `we_corp_account`
   AUTO_INCREMENT = 10000
   DEFAULT CHARSET = utf8mb4 COMMENT ='企业相关配置';
 
+-- 初始化企业
+INSERT INTO `scrm`.`we_corp_account`(`id`, `corp_id`, `company_name`, `user_id`, `mobile`, `agent_id`, `id_secret`,
+                                     `encoding_aes_key`, `token`, `corp_secret`, `contact_secret`, `agent_secret`,
+                                     `public_secret`, `private_secret`, `account_type`, `wx_qr_login_redirect_uri`,
+                                     `customer_churn_notice_switch`, `customer_group_notice`, `status`, `del_flag`,
+                                     `delete_timestamp`, `create_by`, `create_time`, `update_by`, `update_time`)
+VALUES (10000, 'wwb7bc0ee558e60842', '我来了', '', '18767218370', '1000004', '757b505cfd34c64c85ca5b5690ee5293',
+        'du1fkGuXTcjPbFbwnjk1ZYM5ymiTIJ6oetTxP5jD3si', 'yLUG9BOJw1BR0wihnzk77JwmAl9',
+        'TjOdsTpxx3PyAyuNvnnhXe-CP1YgNIGWf32T6RTrt6c', 'fKmYUqb1gaVbnOuCT9qSb59j-xOnMbDiThizOZ-_lwU',
+        'QUhOY9W9W0vVOMCBQodBquZiHQoamtF6VDYZlly7nxY', '', '', 'member', '', 0, 0, 0, 0, 0, NULL, '2021-10-18 19:36:05',
+        '', '2021-10-18 19:36:05');
+
+
 -- 通讯录相关用户
 DROP TABLE if EXISTS `we_user`;
 CREATE TABLE `we_user`

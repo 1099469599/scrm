@@ -24,7 +24,8 @@ public class WeAccessTokenTest extends BaseTest {
     public void getAccessToken(){
         log.info("sss");
         BaseContextHandler.setCorpId("wwb7bc0ee558e60842");
-        String list = customerClient.list();
+        //String list = customerClient.list();
+        String list = customerClient.getFollowUserList();
         log.info("{}",list);
     }
 }
