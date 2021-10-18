@@ -2,7 +2,6 @@ package com.scrm.wecom;
 
 import com.scrm.BaseTest;
 import com.scrm.context.BaseContextHandler;
-import com.scrm.dto.wecom.WeAccessTokenDTO;
 import com.scrm.service.wecom.AccessTokenClient;
 import com.scrm.service.wecom.customer.CustomerClient;
 import lombok.extern.slf4j.Slf4j;
@@ -23,9 +22,9 @@ public class WeAccessTokenTest extends BaseTest {
 
     @Test
     public void getAccessToken(){
-        WeAccessTokenDTO wwb7bc0ee558e60842 = accessTokenClient.getAccessToken("wwb7bc0ee558e60842", "TjOdsTpxx3PyAyuNvnnhXe-CP1YgNIGWf32T6RTrt6c");
         log.info("sss");
         BaseContextHandler.setCorpId("wwb7bc0ee558e60842");
         String list = customerClient.list();
+        log.info("{}",list);
     }
 }

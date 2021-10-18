@@ -3,11 +3,16 @@ package com.scrm.service.wecom._impl;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.github.lianjiatech.retrofit.spring.boot.annotation.RetrofitClient;
 import com.github.lianjiatech.retrofit.spring.boot.core.RetrofitFactoryBean;
+import com.scrm.annotation.CacheExpire;
+import com.scrm.dto.wecom.WeAccessTokenDTO;
 import com.scrm.entity.pojo.company.WeCorpAccount;
 import com.scrm.exception.CommonException;
+import com.scrm.exception.WeComException;
 import com.scrm.retrofit.interceptor.annotation.AccessToken;
 import com.scrm.retrofit.interceptor.service.AccessTokenService;
 import com.scrm.service.biz.company.WeCorpAccountService;
+import com.scrm.service.wecom.AccessTokenClient;
+import com.scrm.utils.SpringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -27,6 +32,8 @@ public class AccessTokenServiceImpl implements AccessTokenService {
 
     @Autowired
     private WeCorpAccountService weCorpAccountService;
+    @Autowired
+    private AccessTokenClient accessTokenClient;
 
     private final Map<String, AccessToken> annotationMap = new HashMap<>();
 
@@ -67,7 +74,6 @@ public class AccessTokenServiceImpl implements AccessTokenService {
      * @return accessToken
      */
     @Override
-    @Cacheable(cacheNames = "accessToken", key = "#corpId")
     public String accessToken(String url, String corpId) {
         AccessToken accessToken = annotationMap.get(url);
         if (Objects.isNull(accessToken)) {
@@ -81,21 +87,60 @@ public class AccessTokenServiceImpl implements AccessTokenService {
         WeCorpAccount one = Optional.ofNullable(weCorpAccountService.getOne(Wrappers.lambdaQuery(WeCorpAccount.class)
                 .eq(WeCorpAccount::getCorpId, corpId)
                 .last("limit 1"))).orElseThrow(() -> new CommonException("当前企业不存在"));
-        // TODO
         switch (annotation.type()) {
             case SUITE_APP:
-                return "";
-
+                return SpringUtil.getBean(this.getClass()).createSuitAppAccessToken(annotation.type().getCode(), one);
             case COMMON:
-                return "";
-
+                return SpringUtil.getBean(this.getClass()).createCommonAccessToken(annotation.type().getCode(), one);
             case CONTACT:
-                return "";
+                return SpringUtil.getBean(this.getClass()).createContactAccessToken(annotation.type().getCode(), one);
             case NO_ACCESS:
                 return "";
-            default:
-                return "";
         }
+        throw new WeComException("未知的accessToken类型");
     }
+
+
+    /**
+     * 创建第三方应用相关的accessToken
+     *
+     * @param type    annotation_type
+     * @param account 账号
+     */
+    @Cacheable(cacheNames = "accessToken", key = "#account.corpId + ':' + #type")
+    @CacheExpire
+    public String createSuitAppAccessToken(String type, WeCorpAccount account) {
+        WeAccessTokenDTO accessToken = accessTokenClient.getAccessToken(account.getCorpId(), account.getAgentSecret());
+        return accessToken.getAccess_token();
+    }
+
+    /**
+     * 创建企微通讯录相关的accessToken
+     * {@link WeCorpAccount#getCorpSecret()}
+     *
+     * @param type    annotation_type
+     * @param account 账号
+     */
+    @Cacheable(cacheNames = "accessToken", key = "#account.corpId + ':' + #type")
+    @CacheExpire
+    public String createCommonAccessToken(String type, WeCorpAccount account) {
+        WeAccessTokenDTO accessToken = accessTokenClient.getAccessToken(account.getCorpId(), account.getCorpSecret());
+        return accessToken.getAccess_token();
+    }
+
+    /***
+     * 创建外部联系人相关的accessToken
+     * {@link WeCorpAccount#getContactSecret()}
+     *
+     * @param type    annotation_type
+     * @param account 账号
+     */
+    @Cacheable(cacheNames = "accessToken", key = "#account.corpId + ':' + #type")
+    @CacheExpire
+    public String createContactAccessToken(String type, WeCorpAccount account) {
+        WeAccessTokenDTO accessToken = accessTokenClient.getAccessToken(account.getCorpId(), account.getCorpSecret());
+        return accessToken.getAccess_token();
+    }
+
 
 }

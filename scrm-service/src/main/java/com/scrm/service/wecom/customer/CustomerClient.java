@@ -2,6 +2,7 @@ package com.scrm.service.wecom.customer;
 
 import com.github.lianjiatech.retrofit.spring.boot.annotation.Intercept;
 import com.github.lianjiatech.retrofit.spring.boot.annotation.RetrofitClient;
+import com.github.lianjiatech.retrofit.spring.boot.retry.Retry;
 import com.scrm.entity.enums.AccessTokenEnum;
 import com.scrm.retrofit.interceptor.AccessTokenInterceptor;
 import com.scrm.retrofit.interceptor.annotation.AccessToken;
@@ -17,6 +18,8 @@ public interface CustomerClient {
 
     @GET(value = "externalcontact/list")
     @AccessToken(type = AccessTokenEnum.CONTACT)
+    @Retry(maxRetries = 4)
     String list();
+
 
 }

@@ -35,7 +35,7 @@ public class AccessTokenInterceptor extends BasePathMatchInterceptor {
             throw new CommonException("当前corpId为空");
         }
         // 此处需要补全accessToken
-        HttpUrl newHttp = httpUrl.newBuilder().addQueryParameter(AccessTokenService.ACCESS_TOKEN, accessTokenService.accessToken(httpUrl.encodedPath(), corpId)).build();
+        HttpUrl newHttp = httpUrl.newBuilder().addQueryParameter(AccessTokenService.ACCESS_TOKEN, accessTokenService.accessToken(httpUrl.url().toString(), corpId)).build();
         Request newRequest = request.newBuilder().url(newHttp).build();
         return chain.proceed(newRequest);
     }
